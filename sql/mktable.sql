@@ -6,4 +6,5 @@ create table product (
 
 insert into product (data) values ('Hink');
 insert into product (data) values ('Spade');
+insert into product (data) values ('Kanna');
 commit;
