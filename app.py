@@ -3,10 +3,19 @@ import MySQLdb
 import json
 
 from flask import Flask
+from flask_restful import Resource, Api
+
 app = Flask(__name__)
+api = Api(app)
+
+class CreateUser(Resource):
+    def get(self):
+        return {'status': 'success'}
+
+api.add_resource(CreateUser, '/CreateUser')
 
 def get_article():
-	db = MySQLdb.connect(host="192.168.10.22",    # your host, usually localhost
+	db = MySQLdb.connect(host="127.0.0.1",    # your host, usually localhost
                      user="rasse",         # your username
                      passwd="mysql",  # your password
                      db="rasse")        # name of the data base
@@ -20,8 +29,8 @@ def get_article():
 
 	# print all the first cell of all the rows
 	jlist = []
-	jdata = {}
 	for row in cur.fetchall():
+		jdata = {}
 		jdata[row[0]] = row[1]
 		jlist.append(jdata)
 
@@ -38,7 +47,6 @@ def get_json():
 @app.route('/')
 @app.route('/index')
 def index():
-    user = {'nickname': 'Miguel'}  # fake user
     return get_article()
 
 
